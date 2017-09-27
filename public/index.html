@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>NodeJS - Express - SocketIO</title>
+    </head>
+    <body>
+        <div id="app">
+            <div id="login">
+                <label for="username">Login</label>
+                <input v-model="user" id="username" type="text" placeholder="choose a username" />
+            </div>
+            <div v-if="user != null">
+                <hr />
+                <h4>{{room}}</h4>
+                <div id="messages">
+                    <div v-for="message in messages"><b>{{message.author}}:</b> {{message.content}}</div>
+                </div>
+                <textarea v-model="message"></textarea>
+                <button v-on:click="send">SEND</button>
+            </div>
+            <hr />
+            <button v-on:click="join" id="room1">ROOM 1</button>
+            <button v-on:click="join" id="room2">ROOM 2</button>
+            <button v-on:click="join" id="room3">ROOM 3</button>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/app.js"></script>
+    </body>
+</html>
