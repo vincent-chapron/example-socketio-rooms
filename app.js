@@ -12,6 +12,7 @@ io.on('connection', socket => {
     socket.emit('connected')
     socket.broadcast.emit('new')
     socket.on('join', data => {
+        console.log('JOIN')
         Object.keys(socket.rooms).map(room => {
             if (room !== socket.id) socket.leave(socket.rooms[room])
         })
@@ -21,6 +22,16 @@ io.on('connection', socket => {
     socket.on('send:message', data => {
         socket.broadcast.to(data.message.room).emit('message:sent', data)
     })
+
+    socket.use(function(event, next) {
+        console.log(event)
+        next()
+    });
+})
+
+io.use(function(socket, next) {
+    console.log(socket.id)
+    next()
 })
 
 server.listen(3000)
